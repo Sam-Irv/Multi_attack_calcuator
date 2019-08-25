@@ -76,6 +76,9 @@ document.getElementById("roll_attacks_button").addEventListener("click", (e) => 
                 damage += getRndInteger(1, creature.die_value);
             }
             log += ', crit! Does ' + damage.toString() + ' damage.\n'
+        } else if (roll == 1) {
+            damage = 0;
+            log += ', total miss.\n'
         } else if (roll + creature.hit_mod >= AC) {
             hits++;
             damage = creature.dmg_mod
