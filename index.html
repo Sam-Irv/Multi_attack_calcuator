@@ -24,18 +24,28 @@
         </h1>
         <form>
           <div class="form-group">
-            <input type="text" name="number_of_attacks" step="1" min="1" class="form-control form-control-lg positive_integer" id="number_of_attacks" placeholder="Number of attacks" required>
-            <input type="text" name="target_AC" step="1" min="1" class="form-control form-control-lg positive_integer" id="target_AC" placeholder="Target's AC" required>
-            <select name="creature" id="creature">
-                <option value="wolf">Wolf</option>
-                <option value="custom">Custom</option>
-            </select>
-            <select name="advantage_disadvantage" id="advantage_disadvantage">
-                <option value="advantage">Advantage</option>
-                <option value="flat">Flat roll</option>
-                <option value="disadvantage">Disadvantage</option>
-            </select>
-            <button type="button" id="roll_attacks_button">Roll attacks</button>
+            <input type="text" class="form-control form-control-lg positive_integer" id="number_of_attacks" placeholder="Number of attacks" required>
+            <input type="text" class="form-control form-control-lg positive_integer" id="target_AC" placeholder="Target's AC" required>
+            <div class="center">
+                <select name="creature" id="creature" onchange="hide_or_show_custom_monster(this.value);">
+                    <option value="wolf">Wolf</option>
+                    <option value="custom">Custom</option>
+                </select>
+                <select name="advantage_disadvantage" id="advantage_disadvantage">
+                    <option value="advantage">Advantage</option>
+                    <option value="flat">Flat roll</option>
+                    <option value="disadvantage">Disadvantage</option>
+                </select>
+            </div>
+            <div class="center" id="custom_monster" style="display:none;">
+                <input type="text" class="form-control form-control-lg positive_integer" id="number_of_dice" placeholder="Number of dice" required>
+                <input type="text" class="form-control form-control-lg positive_integer" id="dice_value" placeholder="Dice value (i.e. max value)" required>
+                <input type="text" class="form-control form-control-lg positive_integer" id="attack_modifier" placeholder="Attack modifier" required>
+                <input type="text" class="form-control form-control-lg positive_integer" id="damage_modifier" placeholder="Damage modifer" required>
+            </div>
+            <div class="center">
+                <button type="button" id="roll_attacks_button">Roll attacks</button>
+            </div>
           </div>
         </form>
         

@@ -28,6 +28,14 @@ function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
+function hide_or_show_custom_monster(selection) {
+    if (selection === "custom") {
+        document.getElementById("custom_monster").style.display = "block";
+    } else {
+        document.getElementById("custom_monster").style.display = "none";
+    }
+}
+
 var creature_list = {
     'wolf': {num_dice:2, die_value:4, hit_mod:4, dmg_mod:2}
 };
@@ -42,7 +50,12 @@ document.getElementById("roll_attacks_button").addEventListener("click", (e) => 
     var log = '';
     var roll_1, roll_2, roll, damage;
     if (creature_string === 'custom') {
-            var creature = {};
+            var creature = {
+                num_dice:Number(document.getElementById("number_of_dice").value),
+                die_value:Number(document.getElementById("dice_value").value),
+                hit_mod:Number(document.getElementById("attack_modifier").value),
+                dmg_mod:Number(document.getElementById("damage_modifier").value)
+            };
     } else {
         var creature = creature_list[creature_string];
     }
