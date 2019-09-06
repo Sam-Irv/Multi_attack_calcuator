@@ -48,6 +48,7 @@ document.getElementById("roll_attacks_button").addEventListener("click", (e) => 
     var hits = 0;
     var crits = 0;
     var log = '';
+    var resistant = document.getElementById("resistance").checked;
     var roll_1, roll_2, roll, damage;
     if (creature_string === 'custom') {
             var creature = {
@@ -88,6 +89,9 @@ document.getElementById("roll_attacks_button").addEventListener("click", (e) => 
             for (j = 0; j < 2*creature.num_dice; j++) {
                 damage += getRndInteger(1, creature.die_value);
             }
+            if(resistant) {
+                damage = Math.floor(damage/2);
+            }
             log += ', crit! Does ' + damage.toString() + ' damage.\n'
         } else if (roll == 1) {
             damage = 0;
@@ -97,6 +101,9 @@ document.getElementById("roll_attacks_button").addEventListener("click", (e) => 
             damage = creature.dmg_mod
             for (j = 0; j < creature.num_dice; j++) {
                 damage += getRndInteger(1, creature.die_value); 
+            }
+            if(resistant) {
+                damage = Math.floor(damage/2);
             }
             log += ', hit. Does ' + damage.toString() + ' damage.\n'
         } else {
