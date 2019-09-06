@@ -36,6 +36,20 @@ function hide_or_show_custom_monster(selection) {
     }
 }
 
+var acc = document.getElementsByClassName("footer-button");
+for (var i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+  
+}
+
 var creature_list = {
     'wolf': {num_dice:2, die_value:4, hit_mod:4, dmg_mod:2}
 };

@@ -32,3 +32,36 @@ input.checked:invalid {
   color: black;
   display: none;
 }
+
+
+.footer {
+    
+    background-color: #eee;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.footer-button {
+  justify-content: center;
+  padding: 5px;
+  color: black;
+  vertical-align: bottom;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.4s;
+  clear: left;
+}
+
+.active, .footer-button:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+  color: black;
+  width: 100%;
+}
