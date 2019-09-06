@@ -8,6 +8,7 @@ body {
   margin-top : 70px;
   color: #fff;
 }
+
 .card {
   padding: 10px;
 }
@@ -18,4 +19,16 @@ body {
 
 .center {
     text-align: center;
+}
+
+input.checked:invalid {
+  border-color: red;
+  background-color: pink;
+}
+
+.error-message {
+  border-color: red;
+  background-color: pink;
+  color: black;
+  display: none;
 }

@@ -25,7 +25,13 @@
         <form>
           <div class="form-group">
             <input type="text" class="form-control form-control-lg positive_integer" id="number_of_attacks" placeholder="Number of attacks" required>
-            <input type="text" class="form-control form-control-lg positive_integer" id="target_AC" placeholder="Target's AC" required>
+            <div class="error-message card" id="error-number-attacks">
+                  &#9888 Number of attacks is required
+            </div>
+            <input type="text" class="form-control form-control-lg positive_integer test" id="target_AC" placeholder="Target's AC" required>
+            <div class="error-message card" id="error-AC">
+                  &#9888 Target AC is required
+            </div>
             <div class="center">
                 <select name="creature" id="creature" onchange="hide_or_show_custom_monster(this.value);">
                     <option value="wolf">Wolf</option>
@@ -41,10 +47,13 @@
                 <input type="checkbox" id="resistance"> Resistance <br>
             </div>
             <div class="center" id="custom_monster" style="display:none;">
-                <input type="text" class="form-control form-control-lg positive_integer" id="number_of_dice" placeholder="Number of dice" required>
-                <input type="text" class="form-control form-control-lg positive_integer" id="dice_value" placeholder="Dice value (i.e. max value)" required>
-                <input type="text" class="form-control form-control-lg positive_integer" id="attack_modifier" placeholder="Attack modifier" required>
-                <input type="text" class="form-control form-control-lg positive_integer" id="damage_modifier" placeholder="Damage modifer" required>
+                <input type="text" class="form-control form-control-lg positive_integer form-custom" id="number_of_dice" placeholder="Number of dice" required>
+                <input type="text" class="form-control form-control-lg positive_integer form-custom" id="dice_value" placeholder="Dice value (i.e. max value)" required>
+                <input type="text" class="form-control form-control-lg positive_integer form-custom" id="attack_modifier" placeholder="Attack modifier" required>
+                <input type="text" class="form-control form-control-lg positive_integer form-custom" id="damage_modifier" placeholder="Damage modifer" required>
+            <div class="error-message card" id="error-custom">
+                  &#9888 All custom monster attributes required
+            </div>
             </div>
             <div class="center">
                 <button type="button" id="roll_attacks_button">Roll attacks</button>
