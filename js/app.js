@@ -23,10 +23,12 @@ for (i = 0; i < x.length; i++) {
     return /^\d*$/.test(value); });
 }
 
+
 function getRndInteger(min, max) {
   //both min and max inclusive
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
+
 
 function hide_or_show_custom_monster(selection) {
   if (selection === "custom") {
@@ -36,23 +38,61 @@ function hide_or_show_custom_monster(selection) {
   }
 }
 
-var acc = document.getElementsByClassName("footer-button");
-for (var i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
+
+document.getElementById("advanced_options").addEventListener("click", function() {
+  this.classList.toggle("active");
+  var content = this.nextElementSibling;
+  if (content.style.display === "block") {
+    content.style.display = "none";
+    document.getElementById("advanced_options").innerHTML = "Advanced options";
+    var adv_options = document.getElementsByClassName("advanced_form");
+    for (i = 0; i < adv_options.length; i++) {
+      adv_options[i].value = '';
     }
-  });
-  
-}
+  } else {
+    content.style.display = "block";
+    document.getElementById("advanced_options").innerHTML = "Clear advanced options";
+  }
+});
+
+
+document.getElementById("footer-button").addEventListener("click", function() {
+  this.classList.toggle("active");
+  var panel = this.nextElementSibling;
+  if (panel.style.display === "block") {
+    panel.style.display = "none";
+  } else {
+    panel.style.display = "block";
+  }
+});
+
 
 var creature_list = {
     'wolf': {num_dice:2, die_value:4, hit_mod:4, dmg_mod:2}
 };
+
+
+function crit_damage(damage_mod, number_of_dice, die_value, number_brutal_dice, brutal_dice_value) {
+  var damage = damage_mod
+  for (j = 0; j < 2*number_of_dice; j++) {
+    damage += getRndInteger(1, die_value);
+  }
+  if (number_brutal_dice > 0 && brutal_dice_value > 0) {
+    for (j = 0; j < number_brutal_dice; j++) {
+      damage += getRndInteger(1, brutal_dice_value);
+    }
+  }
+  return damage;
+}
+
+
+function normal_damage(damage_mod, number_of_dice, die_value) {
+  var damage = damage_mod
+  for (j = 0; j < number_of_dice; j++) {
+    damage += getRndInteger(1, die_value);
+  }
+  return damage;
+}
 
 
 document.getElementById("roll_attacks_button").addEventListener("click", (e) => {
@@ -84,12 +124,16 @@ document.getElementById("roll_attacks_button").addEventListener("click", (e) => 
   
   if (!invalid) {
     var total_damage = 0;
-    var AC = document.getElementById("target_AC").value;
+    var AC = Number(document.getElementById("target_AC").value);
     var hits = 0;
     var crits = 0;
     var log = '';
     var resistant = document.getElementById("resistance").checked;
-    var roll_1, roll_2, roll, damage;
+    var roll_1, roll_2, roll, damage, adv;
+    var expanded_crit_range = 20;
+    var brutal_crit_die_number = 0;
+    var brutal_crit_die_value = 0;
+    
     if (creature_string === 'custom') {
       var creature = {
         num_dice:Number(document.getElementById("number_of_dice").value),
@@ -100,8 +144,18 @@ document.getElementById("roll_attacks_button").addEventListener("click", (e) => 
     } else {
       var creature = creature_list[creature_string];
     }
+    
+    if(document.getElementById("number_brutal_dice").value !== '') {
+      brutal_crit_die_number = Number(document.getElementById("number_brutal_dice").value);
+    }
+    if(document.getElementById("brutal_dice_value").value !== '') {
+      brutal_crit_die_value = Number(document.getElementById("brutal_dice_value").value);
+    }
+    if(document.getElementById("expanded_crit_range").value !== '') {
+      expanded_crit_range = Number(document.getElementById("expanded_crit_range").value);
+    }
+    
     log += 'Rolling ' + document.getElementById("number_of_attacks").value
-    var adv;
     if (document.getElementById("advantage").checked) {
       adv = 'advantage';
     } else if (document.getElementById("disadvantage").checked) {
@@ -130,26 +184,20 @@ document.getElementById("roll_attacks_button").addEventListener("click", (e) => 
         roll = roll_1;
         log += 'Rolled ' + roll_1;
       }
-      if (roll === 20) {
+      if (roll === 1) {
+        damage = 0;
+        log += ', total miss.\n'
+      } else if (roll === 20 || (roll >= expanded_crit_range && roll + creature.hit_mod >= AC)) {
         crits++;
         hits++;
-        damage = creature.dmg_mod
-        for (j = 0; j < 2*creature.num_dice; j++) {
-          damage += getRndInteger(1, creature.die_value);
-        }
+        damage = crit_damage(creature.dmg_mod, creature.num_dice, creature.die_value, brutal_crit_die_number, brutal_crit_die_value);
         if(resistant) {
           damage = Math.floor(damage/2);
         }
         log += ', crit! Does ' + damage.toString() + ' damage.\n'
-      } else if (roll == 1) {
-        damage = 0;
-        log += ', total miss.\n'
       } else if (roll + creature.hit_mod >= AC) {
         hits++;
-        damage = creature.dmg_mod
-        for (j = 0; j < creature.num_dice; j++) {
-          damage += getRndInteger(1, creature.die_value); 
-        }
+        damage = normal_damage(creature.dmg_mod, creature.num_dice, creature.die_value);
         if(resistant) {
           damage = Math.floor(damage/2);
         }
@@ -166,6 +214,7 @@ document.getElementById("roll_attacks_button").addEventListener("click", (e) => 
     document.getElementById("log").innerHTML = log;
   }
 });
+
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

@@ -40,21 +40,27 @@
                 </select>
               </div>
               <div class="center">
-                  <input type="radio" name="advantage_disadvantage" id="advantage"> Advantage<br>
-                  <input type="radio" name="advantage_disadvantage" id="flat" checked> Flat roll<br>
-                  <input type="radio" name="advantage_disadvantage" id="disadvantage"> Disadvantage<br>
+                <input type="radio" name="advantage_disadvantage" id="advantage"> Advantage<br>
+                <input type="radio" name="advantage_disadvantage" id="flat" checked> Flat roll<br>
+                <input type="radio" name="advantage_disadvantage" id="disadvantage"> Disadvantage<br>
               </div>
               <div class="center">
-                  <input type="checkbox" id="resistance"> Resistance <br>
+                <input type="checkbox" id="resistance"> Resistance <br>
               </div>
               <div class="center" id="custom_monster" style="display:none;">
-                  <input type="text" class="form-control form-control-lg positive_integer form-custom" id="number_of_dice" placeholder="Number of dice" required>
-                  <input type="text" class="form-control form-control-lg positive_integer form-custom" id="dice_value" placeholder="Dice value (i.e. max value)" required>
-                  <input type="text" class="form-control form-control-lg positive_integer form-custom" id="attack_modifier" placeholder="Attack modifier" required>
-                  <input type="text" class="form-control form-control-lg positive_integer form-custom" id="damage_modifier" placeholder="Damage modifer" required>
-              <div class="error-message card" id="error-custom">
-                &#9888; All custom monster attributes required
-              </div>
+                <input type="text" class="form-control form-control-lg positive_integer form-custom" id="number_of_dice" placeholder="Number of dice" required>
+                <input type="text" class="form-control form-control-lg positive_integer form-custom" id="dice_value" placeholder="Dice value (i.e. max value)" required>
+                <input type="text" class="form-control form-control-lg positive_integer form-custom" id="attack_modifier" placeholder="Attack modifier" required>
+                <input type="text" class="form-control form-control-lg positive_integer form-custom" id="damage_modifier" placeholder="Damage modifer" required>
+                <div class="error-message card" id="error-custom">
+                  &#9888; All custom monster attributes required
+                </div>
+                <div class="card bg-secondary" id="advanced_options">Advanced options</div>
+                <div class="content">
+                  <input type="text" class="form-control form-control-lg positive_integer advanced_form" id="number_brutal_dice" placeholder="Number of brutal crit dice" required>
+                  <input type="text" class="form-control form-control-lg positive_integer advanced_form" id="brutal_dice_value" placeholder="Brutal dice value" required>
+                  <input type="text" class="form-control form-control-lg positive_integer advanced_form" id="expanded_crit_range" placeholder="Expanded crit range (default 20)" required>
+                </div>
               </div>
               <div class="center">
                 <button type="button" id="roll_attacks_button">Roll attacks</button>
@@ -97,7 +103,7 @@
     </div>
 
     <div class="footer">
-      <div class="footer-button">
+      <div id="footer-button">
         About this thing
       </div>
       <div class="panel">
