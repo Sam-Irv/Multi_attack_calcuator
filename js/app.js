@@ -94,6 +94,17 @@ function normal_damage(damage_mod, number_of_dice, die_value) {
   return damage;
 }
 
+document.getElementById("log-container").addEventListener("click", (e) => {
+  var x = document.getElementById("log");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    document.getElementById("log-text").innerHTML = "Log:";
+  } else {
+    x.style.display = "none";
+    document.getElementById("log-text").innerHTML = "Show log";
+  }
+});
+
 
 document.getElementById("roll_attacks_button").addEventListener("click", (e) => {
   var creature_string = document.getElementById("creature").value;
